@@ -1,0 +1,14 @@
+id,opened_at,priority,channel,subject,body
+1001,2024-11-02,high,email,Damaged jacket,Hi this is alex.morgan@northwind.example the zipper failed. Call me at 415-555-0134.
+1002,2024-11-03,low,chat,Size question,What size runs large?
+1003,11/04/2024,,email,Missing button,Order arrived without buttons. Email sam.lee@northwind.example or 212-555-0199.
+1004,2024-11-05,medium,phone,Billing,SSN on the invoice was 219-09-1234 which is wrong.
+1005,2024-11-05,medium,email,Billing follow up,Duplicate of the billing thread.
+1006,2024-11-06,NULL,web,Late delivery,Still waiting.
+1007,2024-11-06,high,email,Refund,Please refund. My number is (646) 555-0176.
+1008,not-a-date,low,chat,Thread color,Do you have navy?
+1009,2024-11-08,,email,Address change,Send updates to priya.shah@northwind.example
+1010,2024-11-09,high,email,Warranty,Claim form asks for 517-44-8801 and I don't want that stored.
+1001,2024-11-10,low,chat,Damaged jacket again,Same customer wrote back.
+1011,2024-11-11,medium,web,,NULL
+1012,2024-11-12,,,,

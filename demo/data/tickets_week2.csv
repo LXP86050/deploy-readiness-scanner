@@ -1,0 +1,5 @@
+id,opened_at,priority,subject,body,sentiment
+2001,2024-12-01,high,Exchange,Need to exchange. Reach jordan.hale@northwind.example,positive
+2002,2024-12-02,low,Gift wrap,Please gift wrap.,
+2003,2024-12-03,,Late again,Second delay this month.,negative
+2004,12/04/2024,medium,Store credit,Thanks,positive
