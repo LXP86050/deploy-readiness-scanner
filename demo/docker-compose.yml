@@ -1,0 +1,38 @@
+name: drs-demo
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: demo-not-a-secret
+      POSTGRES_DB: support
+    ports:
+      - "55432:5432"
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d support"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+
+  mock-llm:
+    image: python:3.12-slim
+    working_dir: /app
+    command: ["python", "server.py"]
+    volumes:
+      - ./mock_llm:/app:ro
+    ports:
+      - "18089:8089"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8089/health')",
+        ]
+      interval: 2s
+      timeout: 5s
+      retries: 30

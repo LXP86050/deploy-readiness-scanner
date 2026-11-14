@@ -1,0 +1,92 @@
+name: northwind-support
+environment: staging
+
+residency:
+  region: us
+  allowed: [us, local]
+
+thresholds:
+  min_category_score: 70
+  fail_on: blocker
+
+concurrency: 8
+
+timeouts:
+  default_seconds: 30
+  scan_seconds: 90
+
+credentials:
+  required_env: [LLM_API_KEY, DATABASE_URL]
+  optional_env: [OPENAI_ADMIN_KEY]
+
+proxy:
+  expect_proxy: false
+
+endpoints:
+  - name: llm
+    url: http://127.0.0.1:18089/health
+  - name: vector
+    url: http://127.0.0.1:18089/vector/health
+
+llm:
+  url: http://127.0.0.1:18089/v1/chat/completions
+  api_key_env: LLM_API_KEY
+  model: mock-small
+  requests: 5
+  timeout_seconds: 8
+
+sources:
+  - name: tickets-csv
+    kind: csv
+    path: data/tickets.csv
+    schema_id: tickets
+    sample_limit: 1000
+  - name: tickets-week2
+    kind: csv
+    path: data/tickets_week2.csv
+    schema_id: tickets
+    sample_limit: 1000
+  - name: tickets-parquet
+    kind: parquet
+    path: data/tickets.parquet
+    schema_id: tickets
+    sample_limit: 1000
+  - name: tickets-db
+    kind: postgres
+    url_env: DATABASE_URL
+    schema_id: tickets
+    tables: [tickets]
+    sample_limit: 1000
+  - name: policy-docs
+    kind: documents
+    path: data/docs
+
+embedding:
+  chunk_tokens: 512
+  dollars_per_million_tokens: 0.02
+  budget_usd: 5
+
+runtime:
+  min_python: "3.11"
+  require_cuda: false
+  min_memory_mb: 256
+
+security:
+  env_files:
+    - customer.env
+  scan_paths:
+    - config
+  listeners:
+    - name: postgres
+      port: 55432
+      public_ok: false
+    - name: llm
+      port: 18089
+      public_ok: false
+  prompt_logging:
+    stores_prompts: true
+    destination: stdout
+
+checks:
+  include: []
+  exclude: []

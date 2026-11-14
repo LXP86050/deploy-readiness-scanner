@@ -1,0 +1,5 @@
+Q: Where is my order?
+A: Look up the ticket id. Do not ask the customer to resend payment details.
+
+Q: Can I change the address?
+A: Yes, before the carrier scan.
