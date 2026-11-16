@@ -1,9 +1,9 @@
-[![ci](https://github.com/LXP86050/deploy-readiness-scanner/actions/workflows/ci.yml/badge.svg)](https://github.com/LXP86050/deploy-readiness-scanner/actions/workflows/ci.yml)
-[![license](https://img.shields.io/github/license/LXP86050/deploy-readiness-scanner)](LICENSE)
+# deploy-readiness-scanner
 
-# drs
+The `drs` CLI is a preflight an engineer runs inside a customer's environment before an LLM system is turned on.
 
-`drs` is a preflight an engineer runs inside a customer's environment before an LLM system is turned on.
+[![ci](https://img.shields.io/github/actions/workflow/status/LXP86050/deploy-readiness-scanner/ci.yml?branch=main&label=ci&style=flat)](https://github.com/LXP86050/deploy-readiness-scanner/actions/workflows/ci.yml)
+[![license](https://img.shields.io/github/license/LXP86050/deploy-readiness-scanner?style=flat)](LICENSE)
 
 The usual failure is not the model. It is the environment: the API is on the wrong side of a proxy, the export the job will embed still has phone numbers in it, the database URL is the superuser, or a config file that will ship with the service has a key in it. `drs` reads a `drs.yaml` for that environment, runs a set of checks, and writes a report with a score per category and a remediation for each finding. The process exit code is meant to fail a CI job.
 
