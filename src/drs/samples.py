@@ -12,7 +12,7 @@ from drs.redact import redact_url
 
 _IDENT = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 _TEXTUAL_NULLS = {"null", "none", "n/a", "na", "nil"}
-_ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}(?:[ T]\d{2}:\d{2}(?::\d{2})?)?(?:Z|[+-]\d{2}:?\d{2})?$")
+_ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}(?:[ T]\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?)?(?:Z|[+-]\d{2}:?\d{2})?$")
 _US_DATE = re.compile(r"^\d{1,2}/\d{1,2}/\d{4}$")
 _SKIP_DIRS = {".git", ".venv", "node_modules", "__pycache__", ".mypy_cache", ".ruff_cache"}
 TEXT_SUFFIXES = {".txt", ".md", ".markdown", ".html", ".htm", ".rst", ".json", ".csv"}
