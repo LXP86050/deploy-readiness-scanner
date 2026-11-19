@@ -50,6 +50,30 @@ def test_demo_csv_shape() -> None:
     assert any(hit.sample == "a***@northwind.example" for hit in hits)
 
 
+def test_fractional_iso_timestamps_are_one_format(tmp_path: Path) -> None:
+    path = tmp_path / "events.csv"
+    path.write_text(
+        "id,opened_at\n1,2024-01-15T12:00:00.000Z\n2,2024-01-15T12:00:00.123456+00:00\n3,2024-01-15 12:00:00.5Z\n",
+        encoding="utf-8",
+    )
+    frame = read_csv(path, _source("events", "csv", path.name))
+    assert date_formats(frame)["opened_at"] == {"iso": 3, "us": 0, "other": 0}
+    config = write_config(
+        tmp_path,
+        """
+        name: acme
+        environment: dev
+        sources:
+          - name: events
+            kind: csv
+            path: events.csv
+        """,
+    )
+    profile = run_check(DataProfileCheck(), config)
+    titles = {finding.title for finding in profile.findings or []}
+    assert "Date columns are not in one format" not in titles
+
+
 def test_schema_drift_between_demo_exports() -> None:
     first = read_csv(
         ROOT / "demo" / "data" / "tickets.csv",
